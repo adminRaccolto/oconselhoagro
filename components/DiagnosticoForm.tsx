@@ -1,11 +1,10 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
-import { ArrowRight, CheckCircle2, Loader2, Phone, ShieldCheck } from "lucide-react"
+import { ArrowRight, CheckCircle2, Loader2, ArrowRight as Next } from "lucide-react"
 
-type Step = "identificacao" | "otp" | "diagnostico" | "enviando"
+type Step = "identificacao" | "diagnostico" | "enviando"
 
 const PRODUCOES = ["Soja", "Milho", "Pecuária", "Misto (grãos + pecuária)", "Cana-de-açúcar", "Café", "Horticultura", "Outro"]
 const ESTADOS = ["AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"]
@@ -17,8 +16,6 @@ export function DiagnosticoForm() {
   const [step, setStep] = useState<Step>("identificacao")
   const [loading, setLoading] = useState(false)
   const [erro, setErro] = useState("")
-  const [otpCode, setOtpCode] = useState("")
-  const inputRefs = useRef<HTMLInputElement[]>([])
 
   const [form, setForm] = useState({
     nomeCompleto: "", cpfCnpj: "", celular: "", email: "",
@@ -30,15 +27,19 @@ export function DiagnosticoForm() {
     setErro("")
   }
 
-  // ── Step 1: enviar OTP ─────────────────────────────────────────────────────
-  async function enviarOtp() {
+  // ── Step 1: registrar lead e avançar ──────────────────────────────────────
+  async function avancarParaDiagnostico() {
     if (!form.nomeCompleto || !form.celular || !form.email) {
       return setErro("Preencha todos os campos obrigatórios.")
     }
     setLoading(true)
     setErro("")
     try {
-      const res = await fetch("/api/diagnostico/sms", {
+      const webhookSecret = process.env.NEXT_PUBLIC_MENTORASYS_WEBHOOK_SECRET
+      const headers: Record<string, string> = { "Content-Type": "application/json" }
+      if (webhookSecret) headers["x-conselho-agro-secret"] = webhookSecret
+
+      fetch("/api/diagnostico/sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -47,41 +48,15 @@ export function DiagnosticoForm() {
           email: form.email,
           cpfCnpj: form.cpfCnpj,
         }),
-      })
-      const data = await res.json()
-      if (!res.ok) return setErro(data.error ?? "Erro ao enviar SMS.")
-      // Em dev, preenche automaticamente para facilitar teste
-      if (data._dev_code) setOtpCode(data._dev_code)
-      setStep("otp")
-    } catch {
-      setErro("Erro de conexão. Tente novamente.")
-    } finally {
-      setLoading(false)
-    }
-  }
+      }).catch(() => {})
 
-  // ── Step 2: validar OTP ────────────────────────────────────────────────────
-  async function validarOtp() {
-    if (otpCode.length < 6) return setErro("Digite o código de 6 dígitos.")
-    setLoading(true)
-    setErro("")
-    try {
-      const res = await fetch("/api/diagnostico/sms", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ celular: form.celular, code: otpCode }),
-      })
-      const data = await res.json()
-      if (!res.ok) return setErro(data.error ?? "Código inválido.")
       setStep("diagnostico")
-    } catch {
-      setErro("Erro de conexão. Tente novamente.")
     } finally {
       setLoading(false)
     }
   }
 
-  // ── Step 3: enviar diagnóstico ─────────────────────────────────────────────
+  // ── Step 2: enviar diagnóstico ─────────────────────────────────────────────
   async function enviarDiagnostico() {
     if (!form.tipoProdução || !form.estado || !form.desafio) {
       return setErro("Preencha todos os campos do diagnóstico.")
@@ -104,12 +79,11 @@ export function DiagnosticoForm() {
     }
   }
 
-  // ── UI helpers ─────────────────────────────────────────────────────────────
   const labelCls = "block text-xs font-heading font-semibold text-navy/60 uppercase tracking-wide mb-1"
   const inputCls = "w-full px-4 py-3 rounded-xl border border-navy/15 bg-white text-navy text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition"
 
-  const steps = ["Identificação", "Validação", "Diagnóstico"]
-  const stepIdx = step === "identificacao" ? 0 : step === "otp" ? 1 : 2
+  const steps = ["Identificação", "Diagnóstico"]
+  const stepIdx = step === "identificacao" ? 0 : 1
 
   return (
     <div className="w-full max-w-lg mx-auto">
@@ -150,53 +124,15 @@ export function DiagnosticoForm() {
 
           {erro && <p className="text-red-600 text-xs text-center">{erro}</p>}
 
-          <button onClick={enviarOtp} disabled={loading} className="mt-2 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-heading font-black text-sm tracking-wide uppercase hover:bg-gold-light transition-colors disabled:opacity-60">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Phone className="w-4 h-4" /> Validar meu celular</>}
-          </button>
-
-          <p className="text-center text-navy/40 text-xs">Você receberá um código SMS para confirmar seu número.</p>
-        </div>
-      )}
-
-      {/* ── STEP 2: OTP ── */}
-      {step === "otp" && (
-        <div className="flex flex-col items-center gap-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-navy flex items-center justify-center">
-            <ShieldCheck className="w-8 h-8 text-gold" />
-          </div>
-          <div>
-            <h3 className="font-heading font-black text-xl text-navy mb-1">Confirme seu celular</h3>
-            <p className="text-navy/60 text-sm">Enviamos um código de 6 dígitos para <strong>{form.celular}</strong></p>
-          </div>
-
-          <input
-            className={`${inputCls} text-center text-2xl font-heading font-black tracking-widest max-w-xs`}
-            maxLength={6}
-            placeholder="000000"
-            value={otpCode}
-            onChange={e => { setOtpCode(e.target.value.replace(/\D/g, "")); setErro("") }}
-          />
-
-          {erro && <p className="text-red-600 text-xs">{erro}</p>}
-
-          <button onClick={validarOtp} disabled={loading || otpCode.length < 6} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-heading font-black text-sm tracking-wide uppercase hover:bg-gold-light transition-colors disabled:opacity-60">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><ShieldCheck className="w-4 h-4" /> Confirmar código</>}
-          </button>
-
-          <button onClick={() => { setStep("identificacao"); setOtpCode("") }} className="text-navy/40 text-xs hover:text-navy transition-colors">
-            ← Voltar e corrigir o número
+          <button onClick={avancarParaDiagnostico} disabled={loading} className="mt-2 inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gold text-navy font-heading font-black text-sm tracking-wide uppercase hover:bg-gold-light transition-colors disabled:opacity-60">
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Continuar <ArrowRight className="w-4 h-4" /></>}
           </button>
         </div>
       )}
 
-      {/* ── STEP 3: Diagnóstico ── */}
+      {/* ── STEP 2: Diagnóstico ── */}
       {step === "diagnostico" && (
         <div className="flex flex-col gap-5">
-          <div className="bg-green-mid/10 rounded-xl px-4 py-3 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-green-mid shrink-0" />
-            <p className="text-green-dark text-xs font-semibold">Celular validado! Agora conte um pouco sobre sua propriedade.</p>
-          </div>
-
           <div>
             <label className={labelCls}>Tamanho da propriedade (ha)</label>
             <input className={inputCls} placeholder="Ex: 500" type="number" value={form.propriedadeHa} onChange={e => set("propriedadeHa", e.target.value)} />
