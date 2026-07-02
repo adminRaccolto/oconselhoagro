@@ -32,19 +32,27 @@ export async function POST(req: NextRequest) {
 
     const observacoes = cpfCnpj ? `CPF/CNPJ: ${cpfCnpj}` : undefined
 
-    fetch(webhookUrl, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        nome: nomeCompleto,
-        email: email ?? null,
-        telefone: celular,
-        whatsapp: celular,
-        origem: "oconselhoagro.com.br",
-        observacoes,
-        tags: ["O Conselho Agro"],
-      }),
-    }).catch(err => console.error("[sms] erro ao registrar lead no CRM:", err))
+    try {
+      const crmRes = await fetch(webhookUrl, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          nome: nomeCompleto,
+          email: email ?? null,
+          telefone: celular,
+          whatsapp: celular,
+          origem: "oconselhoagro.com.br",
+          observacoes,
+          tags: ["O Conselho Agro"],
+        }),
+      })
+      if (!crmRes.ok) {
+        const err = await crmRes.text()
+        console.error("[sms] erro CRM:", crmRes.status, err)
+      }
+    } catch (err) {
+      console.error("[sms] erro ao registrar lead no CRM:", err)
+    }
   }
   // ─────────────────────────────────────────────────────────────────────────
 
