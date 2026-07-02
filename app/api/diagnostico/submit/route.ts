@@ -1,55 +1,60 @@
 import { NextRequest, NextResponse } from "next/server"
 
+// Envia o diagnóstico completo ao endpoint /api/diagnostico-lead do MentoraSys
+// que calcula o score, cria o lead e envia o email de resultado.
 export async function POST(req: NextRequest) {
   const body = await req.json()
 
-  const webhookUrl = process.env.MENTORASYS_WEBHOOK_URL
+  const baseUrl = process.env.MENTORASYS_BASE_URL ?? "https://app.raccolto.com.br"
   const webhookSecret = process.env.MENTORASYS_WEBHOOK_SECRET
-
-  if (!webhookUrl) {
-    console.error("[diagnostico/submit] MENTORASYS_WEBHOOK_URL não configurado")
-    return NextResponse.json({ error: "Configuração ausente" }, { status: 500 })
-  }
-
-  const observacoes = formatarDiagnostico(body)
 
   const headers: Record<string, string> = { "Content-Type": "application/json" }
   if (webhookSecret) headers["x-conselho-agro-secret"] = webhookSecret
 
-  const res = await fetch(webhookUrl, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      nome: body.nomeCompleto,
-      email: body.email,
-      telefone: body.celular,
-      whatsapp: body.celular,
-      origem: "oconselhoagro.com.br",
-      observacoes,
-      tags: ["conselho-agro"],
-    }),
-  })
-
-  if (!res.ok) {
-    const err = await res.text()
-    console.error("[diagnostico/submit] Erro no MentoraSys:", err)
-    return NextResponse.json({ error: "Erro ao registrar lead" }, { status: 502 })
+  const payload = {
+    nome: body.nome ?? body.nomeCompleto,
+    email: body.email,
+    telefone: body.telefone ?? body.celular,
+    cpfCnpj: body.cpfCnpj ?? undefined,
+    // Bloco 1 — Operação
+    temSiloArmazem: body.temSiloArmazem,
+    percentualArrendado: body.percentualArrendado,
+    operacoesTerceirizadas: body.operacoesTerceirizadas,
+    // Bloco 2 — Custos
+    custosInsumosDiretos: body.custosInsumosDiretos,
+    hectaresPorTrabalhador: body.hectaresPorTrabalhador,
+    travaAntecipada: body.travaAntecipada,
+    boaLeituraComercializacao: body.boaLeituraComercializacao,
+    // Bloco 3 — Financeiro
+    frustracaoSafra: body.frustracaoSafra,
+    percentualCusteio: body.percentualCusteio,
+    captouMaisQuePageu: body.captouMaisQuePageu,
+    // Bloco 4 — Gestão
+    usaSoftwareGestao: body.usaSoftwareGestao,
+    sabeCustoPorSaca: body.sabeCustoPorSaca,
+    clarezaCustos: body.clarezaCustos,
+    baseDecisoes: body.baseDecisoes,
+    reuniaoFechamento: body.reuniaoFechamento,
   }
 
-  const data = await res.json()
-  return NextResponse.json({ ok: true, lead_id: data.lead_id }, { status: 201 })
-}
+  try {
+    const res = await fetch(`${baseUrl}/api/diagnostico-lead`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(payload),
+    })
 
-function formatarDiagnostico(body: Record<string, string>): string {
-  const partes: string[] = []
+    if (!res.ok) {
+      const err = await res.text()
+      console.error("[diagnostico/submit] Erro MentoraSys:", res.status, err)
+      return NextResponse.json({ error: "Erro ao registrar diagnóstico" }, { status: 502 })
+    }
 
-  if (body.cpfCnpj)       partes.push(`CPF/CNPJ: ${body.cpfCnpj}`)
-  if (body.propriedadeHa) partes.push(`Propriedade: ${body.propriedadeHa} ha`)
-  if (body.tipoProdução)  partes.push(`Produção: ${body.tipoProdução}`)
-  if (body.estado)        partes.push(`Estado: ${body.estado}`)
-  if (body.desafio)       partes.push(`Maior desafio: ${body.desafio}`)
-  if (body.temGestão)     partes.push(`Controle de gestão: ${body.temGestão}`)
-  if (body.faturamento)   partes.push(`Faturamento: ${body.faturamento}`)
-
-  return partes.join("\n")
+    const data = await res.json()
+    console.log("[diagnostico/submit] OK — lead:", data.lead_id, "score:", data.score?.geral?.percentual + "%")
+    return NextResponse.json({ ok: true, lead_id: data.lead_id }, { status: 201 })
+  } catch (err) {
+    console.error("[diagnostico/submit] Erro de conexão:", err)
+    return NextResponse.json({ error: "Erro de conexão" }, { status: 502 })
+  }
 }
