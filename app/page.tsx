@@ -149,22 +149,22 @@ export default function HomePage() {
           <Image src="/logos/digital.png" alt="" width={520} height={520} className="opacity-[0.035] object-contain" />
         </div>
 
-        <div className="relative max-w-3xl mx-auto text-center flex flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+        <div className="relative max-w-5xl mx-auto text-center flex flex-col gap-8">
+          <div className="flex flex-col gap-1.5">
+            <p className="font-heading font-light italic text-xl sm:text-2xl lg:text-3xl text-navy/80 leading-snug">
               Você produz muito, mas não vê o resultado do{" "}
               <em className="not-italic font-semibold text-gold">esforço.</em>
             </p>
-            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+            <p className="font-heading font-light italic text-xl sm:text-2xl lg:text-3xl text-navy/80 leading-snug">
               Sente que a fazenda depende demais de{" "}
-              <em className="not-italic font-semibold text-gold">você.</em>
+              <em className="not-italic font-semibold text-gold">você.</em>{" "}
+              As decisões ficam fragmentadas.
             </p>
-            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
-              As decisões ficam fragmentadas — os especialistas não conversam entre si.
+            <p className="font-heading font-light italic text-xl sm:text-2xl lg:text-3xl text-navy/80 leading-snug">
+              Os especialistas não conversam entre si. A sucessão{" "}
+              <em className="not-italic font-semibold text-gold">preocupa.</em>
             </p>
-            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
-              A sucessão{" "}
-              <em className="not-italic font-semibold text-gold">preocupa.</em>{" "}
+            <p className="font-heading font-light italic text-xl sm:text-2xl lg:text-3xl text-navy/80 leading-snug">
               A produtividade cresce, mas o lucro não acompanha. A gestão não evolui.
             </p>
           </div>
