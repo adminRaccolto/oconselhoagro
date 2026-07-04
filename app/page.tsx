@@ -5,33 +5,10 @@ import { Footer } from "@/components/Footer";
 import { Logo } from "@/components/Logo";
 import {
   ArrowRight,
-  TrendingUp,
-  Leaf,
-  DollarSign,
-  Scale,
-  Truck,
-  Cpu,
-  Users,
-  Crown,
   CheckCircle2,
   XCircle,
   Quote,
-  Calculator,
-  BarChart3,
 } from "lucide-react";
-
-const chairs = [
-  { icon: DollarSign, label: "Gestão & Finanças",      desc: "Controle financeiro, crédito rural e rentabilidade da propriedade." },
-  { icon: TrendingUp, label: "Mercado & Commodities",  desc: "Análise de preços, estratégias de venda e proteção de receita." },
-  { icon: Leaf,       label: "Agronomia & Produção",   desc: "Tecnologia de produção, manejo e inovação no campo." },
-  { icon: Scale,      label: "Jurídico & Ambiental",   desc: "Legislação rural, contratos, compliance ambiental e regularização." },
-  { icon: Cpu,        label: "Tecnologia & AgTech",    desc: "Automação, drones, sensores e sistemas de gestão rural." },
-  { icon: Users,      label: "Sucessão Familiar",      desc: "Planejamento sucessório e governança do negócio da família." },
-  { icon: Truck,      label: "Logística & Escoamento", desc: "Infraestrutura, armazenagem e canais de comercialização." },
-  { icon: Crown,      label: "Liderança & Governança",      desc: "Formação de líderes e profissionalização da gestão rural." },
-  { icon: Calculator, label: "Contabilidade & Tributário",      desc: "Gestão contábil, planejamento tributário e compliance fiscal rural." },
-  { icon: BarChart3,  label: "Bolsa & Derivativos",            desc: "Renda variável, contratos futuros, hedge em commodities e compra de papéis." },
-];
 
 const stats = [
   { num: "27%",    desc: "do PIB brasileiro vem do agronegócio" },
@@ -129,15 +106,15 @@ export default function HomePage() {
 
           <div className="w-24 h-px bg-gold/60" />
 
-          <h1 className="text-white font-heading font-black text-2xl sm:text-4xl lg:text-5xl tracking-wide uppercase leading-tight max-w-3xl">
-            Não é para todo produtor.{" "}
-            <span className="text-gold">É para os que estão prontos para o próximo nível.</span>
+          <h1 className="text-white font-heading font-black text-3xl sm:text-5xl lg:text-6xl tracking-wide uppercase leading-tight max-w-3xl">
+            Ecossistema de{" "}
+            <span className="text-gold">Inteligência e Crescimento</span>{" "}
+            do Agro
           </h1>
 
           <p className="text-white/75 text-base sm:text-lg leading-relaxed max-w-xl">
-            O Conselho Agro é um ecossistema exclusivo — reunimos os melhores produtores,
-            empresários e especialistas do agronegócio em um único ambiente de{" "}
-            <span className="text-white font-semibold">gestão, crescimento e legado.</span>
+            O sistema que transforma produtores rurais em{" "}
+            <span className="text-white font-semibold">empresários preparados para crescer.</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 mt-2">
@@ -163,6 +140,66 @@ export default function HomePage() {
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30" aria-hidden="true">
           <div className="w-px h-8 bg-linear-to-b from-transparent to-white/30" />
           <span className="text-[10px] tracking-widest uppercase">Role</span>
+        </div>
+      </section>
+
+      {/* ── DORES DO PRODUTOR ───────────────────────────────────────────── */}
+      <section className="py-24 px-4 bg-navy">
+        <div className="max-w-2xl mx-auto text-center flex flex-col gap-5">
+          {[
+            { text: "Você produz muito.", highlight: false },
+            { text: "Mas não vê o resultado do esforço.", highlight: false },
+            { text: "Sente que a fazenda depende demais de você.", highlight: false },
+            { text: "As decisões ficam fragmentadas.", highlight: false },
+            { text: "Os especialistas não conversam entre si.", highlight: false },
+            { text: "A sucessão preocupa.", highlight: false },
+            { text: "A produtividade cresce...", highlight: false },
+            { text: "Mas o lucro não acompanha.", highlight: false },
+            { text: "A gestão não evolui.", highlight: false },
+          ].map(({ text }, i) => (
+            <p
+              key={i}
+              className="font-heading font-bold text-xl sm:text-2xl text-white/70 leading-snug"
+            >
+              {text}
+            </p>
+          ))}
+          <div className="w-24 h-px bg-gold/40 mx-auto my-4" />
+          <p className="font-heading font-black text-2xl sm:text-3xl text-gold uppercase tracking-wide">
+            Foi para resolver isso que nasceu o Conselho Agro.
+          </p>
+        </div>
+      </section>
+
+      {/* ── ANTES / DEPOIS ──────────────────────────────────────────────── */}
+      <section className="py-24 px-4 bg-cream">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-14">
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-navy uppercase tracking-wide">
+              O que muda
+            </h2>
+          </div>
+          <div className="flex flex-col gap-6">
+            {[
+              { antes: "Produtor resolve tudo sozinho.", depois: "Você passa a contar com um conselho estratégico." },
+              { antes: "Cada especialista fala uma língua.", depois: "Todos trabalham alinhados." },
+              { antes: "Problemas aparecem quando já são grandes.", depois: "As decisões passam a ser preventivas." },
+            ].map(({ antes, depois }) => (
+              <div key={antes} className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 sm:gap-8">
+                <div className="bg-white rounded-2xl p-6 border border-navy/10 text-right">
+                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-navy/30 mb-2">Antes</p>
+                  <p className="text-navy/60 text-sm sm:text-base leading-snug font-heading font-semibold">{antes}</p>
+                </div>
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gold shrink-0">
+                  <ArrowRight className="h-4 w-4 text-navy" />
+                </div>
+                <div className="bg-navy rounded-2xl p-6 border border-gold/20">
+                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-gold/60 mb-2">Depois</p>
+                  <p className="text-white text-sm sm:text-base leading-snug font-heading font-semibold">{depois}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -269,50 +306,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── AS CADEIRAS DO CONSELHO ──────────────────────────────────────── */}
-      <section id="ecossistema" className="bg-white py-24 px-4">
+      {/* ── O ECOSSISTEMA (MANDALA) ──────────────────────────────────────── */}
+      <section id="ecossistema" className="bg-navy py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-navy uppercase tracking-wide">
-              As Cadeiras do Conselho
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-white uppercase tracking-wide">
+              O Ecossistema
             </h2>
-            <p className="text-navy/60 mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
+            <p className="text-white/60 mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
               Montar uma equipe assim por conta própria custaria fortunas.
               No Conselho, você acessa todas as áreas em um único ecossistema —
               especialistas de referência, disponíveis para os membros.
             </p>
           </div>
 
-          {/* Linha 1 — 5 cadeiras */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {chairs.slice(0, 5).map(({ icon: Icon, label, desc }) => (
-              <div
-                key={label}
-                className="group bg-cream rounded-2xl p-6 border border-navy/8 hover:border-gold/50 hover:shadow-xl transition-all duration-200"
-              >
-                <div className="w-12 h-12 rounded-xl bg-navy group-hover:bg-gold flex items-center justify-center mb-4 transition-colors duration-200">
-                  <Icon className="h-5 w-5 text-gold group-hover:text-navy transition-colors duration-200" />
-                </div>
-                <h3 className="font-heading font-bold text-sm text-navy mb-1.5 leading-snug">{label}</h3>
-                <p className="text-navy/50 text-xs leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Linha 2 — 4 cadeiras, centralizada */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5 mt-8">
-            {chairs.slice(5).map(({ icon: Icon, label, desc }) => (
-              <div
-                key={label}
-                className="group bg-cream rounded-2xl p-6 border border-navy/8 hover:border-gold/50 hover:shadow-xl transition-all duration-200"
-              >
-                <div className="w-12 h-12 rounded-xl bg-navy group-hover:bg-gold flex items-center justify-center mb-4 transition-colors duration-200">
-                  <Icon className="h-5 w-5 text-gold group-hover:text-navy transition-colors duration-200" />
-                </div>
-                <h3 className="font-heading font-bold text-sm text-navy mb-1.5 leading-snug">{label}</h3>
-                <p className="text-navy/50 text-xs leading-relaxed">{desc}</p>
-              </div>
-            ))}
+          <div className="flex justify-center">
+            <Image
+              src="/logos/Mandala.png"
+              alt="Ecossistema O Conselho Agro — Financeiro, Comunidade, Conselho, Gestão, Jurídico, Capital, Contabilidade, Especialistas"
+              width={700}
+              height={747}
+              className="w-full max-w-2xl h-auto"
+              sizes="(max-width: 768px) 100vw, 700px"
+            />
           </div>
         </div>
       </section>
