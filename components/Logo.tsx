@@ -54,7 +54,7 @@ const logoMap: Record<NonNullable<LogoProps["variant"]>, { src: string; alt: str
   // Fundos claros
   combined:         { src: "/logos/Comp_Br_Oliva Amarela.png",       alt: "O Conselho Agro — Raccolto" },
   full:             { src: "/logos/oconselhoagro.png",                alt: "O Conselho Agro" },
-  centralizado:     { src: "/logos/oconselhoagro_br.png",            alt: "O Conselho Agro" },
+  centralizado:     { src: "/logos/conselho_agro_br_Centralizado.png", alt: "O Conselho Agro" },
   digital:          { src: "/logos/digital.png",                      alt: "O Conselho Agro" },
   raccolto:         { src: "/logos/Completa_Original.png",            alt: "Raccolto" },
   // Ícone isolado — estrela Raccolto dourada
