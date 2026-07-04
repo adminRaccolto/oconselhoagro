@@ -189,9 +189,14 @@ export default function HomePage() {
           </div>
           <div className="flex flex-col gap-5">
             {[
-              { antes: "Produtor resolve tudo sozinho.", depois: "Você passa a contar com um conselho estratégico." },
-              { antes: "Cada especialista fala uma língua.", depois: "Todos trabalham alinhados." },
-              { antes: "Problemas aparecem quando já são grandes.", depois: "As decisões passam a ser preventivas." },
+              { antes: "Produtor resolve tudo sozinho.",                          depois: "Você passa a contar com um conselho estratégico." },
+              { antes: "Cada especialista fala uma língua.",                       depois: "Todos trabalham alinhados." },
+              { antes: "Problemas aparecem quando já são grandes.",               depois: "As decisões passam a ser preventivas." },
+              { antes: "Gestão feita na memória e no caderno.",                   depois: "Controle financeiro profissional, em tempo real." },
+              { antes: "Vende quando precisa, ao preço que aparece.",             depois: "Estratégia de venda com hedge, timing e proteção de receita." },
+              { antes: "Patrimônio rural desprotegido e mal estruturado.",        depois: "Estrutura jurídica e tributária que protege o que você construiu." },
+              { antes: "Filho entra na fazenda sem preparo nem protocolo.",       depois: "Próxima geração capacitada para liderar e crescer." },
+              { antes: "Foco no dia a dia — sem ver o futuro do negócio.",        depois: "Visão estratégica de 3 a 5 anos, com metas e plano." },
             ].map(({ antes, depois }) => (
               <div key={antes} className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-6">
                 <div className="bg-white/8 rounded-2xl p-5 sm:p-6 border border-white/10 text-right">
