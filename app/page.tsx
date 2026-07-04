@@ -149,29 +149,27 @@ export default function HomePage() {
           <Image src="/logos/digital.png" alt="" width={520} height={520} className="opacity-[0.035] object-contain" />
         </div>
 
-        <div className="relative max-w-2xl mx-auto text-center">
-          <div className="flex flex-col">
-            {[
-              "Você produz muito.",
-              "Mas não vê o resultado do esforço.",
-              "Sente que a fazenda depende demais de você.",
-              "As decisões ficam fragmentadas.",
-              "Os especialistas não conversam entre si.",
-              "A sucessão preocupa.",
-              "A produtividade cresce...",
-              "Mas o lucro não acompanha.",
-              "A gestão não evolui.",
-            ].map((text, i) => (
-              <p
-                key={i}
-                className="font-heading font-bold text-2xl sm:text-3xl text-navy leading-tight py-3 border-b border-navy/8 last:border-0"
-              >
-                {text}
-              </p>
-            ))}
+        <div className="relative max-w-3xl mx-auto text-center flex flex-col gap-8">
+          <div className="flex flex-col gap-3">
+            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+              Você produz muito, mas não vê o resultado do{" "}
+              <em className="not-italic font-semibold text-gold">esforço.</em>
+            </p>
+            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+              Sente que a fazenda depende demais de{" "}
+              <em className="not-italic font-semibold text-gold">você.</em>
+            </p>
+            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+              As decisões ficam fragmentadas — os especialistas não conversam entre si.
+            </p>
+            <p className="font-heading font-light italic text-2xl sm:text-4xl text-navy/80 leading-snug">
+              A sucessão{" "}
+              <em className="not-italic font-semibold text-gold">preocupa.</em>{" "}
+              A produtividade cresce, mas o lucro não acompanha. A gestão não evolui.
+            </p>
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-4">
             <div className="w-16 h-0.5 bg-gold" />
             <p className="font-heading font-black text-3xl sm:text-5xl text-gold uppercase tracking-wide leading-tight">
               Foi para resolver isso que nasceu o Conselho Agro.
