@@ -144,58 +144,56 @@ export default function HomePage() {
       </section>
 
       {/* ── DORES DO PRODUTOR ───────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-navy">
-        <div className="max-w-2xl mx-auto text-center flex flex-col gap-5">
+      <section className="py-28 px-4 bg-white">
+        <div className="max-w-2xl mx-auto text-center flex flex-col gap-4">
           {[
-            { text: "Você produz muito.", highlight: false },
-            { text: "Mas não vê o resultado do esforço.", highlight: false },
-            { text: "Sente que a fazenda depende demais de você.", highlight: false },
-            { text: "As decisões ficam fragmentadas.", highlight: false },
-            { text: "Os especialistas não conversam entre si.", highlight: false },
-            { text: "A sucessão preocupa.", highlight: false },
-            { text: "A produtividade cresce...", highlight: false },
-            { text: "Mas o lucro não acompanha.", highlight: false },
-            { text: "A gestão não evolui.", highlight: false },
-          ].map(({ text }, i) => (
-            <p
-              key={i}
-              className="font-heading font-bold text-xl sm:text-2xl text-white/70 leading-snug"
-            >
+            "Você produz muito.",
+            "Mas não vê o resultado do esforço.",
+            "Sente que a fazenda depende demais de você.",
+            "As decisões ficam fragmentadas.",
+            "Os especialistas não conversam entre si.",
+            "A sucessão preocupa.",
+            "A produtividade cresce...",
+            "Mas o lucro não acompanha.",
+            "A gestão não evolui.",
+          ].map((text, i) => (
+            <p key={i} className="font-heading font-bold text-xl sm:text-2xl text-navy leading-snug">
               {text}
             </p>
           ))}
-          <div className="w-24 h-px bg-gold/40 mx-auto my-4" />
-          <p className="font-heading font-black text-2xl sm:text-3xl text-gold uppercase tracking-wide">
+          <div className="w-24 h-px bg-gold mx-auto my-6" />
+          <p className="font-heading font-black text-2xl sm:text-3xl text-gold uppercase tracking-wide leading-snug">
             Foi para resolver isso que nasceu o Conselho Agro.
           </p>
         </div>
       </section>
 
       {/* ── ANTES / DEPOIS ──────────────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-cream">
+      <section className="py-24 px-4 bg-navy">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-navy uppercase tracking-wide">
+            <p className="text-gold font-heading font-semibold text-xs tracking-[0.3em] uppercase mb-3">Transformação</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-white uppercase tracking-wide">
               O que muda
             </h2>
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
             {[
               { antes: "Produtor resolve tudo sozinho.", depois: "Você passa a contar com um conselho estratégico." },
               { antes: "Cada especialista fala uma língua.", depois: "Todos trabalham alinhados." },
               { antes: "Problemas aparecem quando já são grandes.", depois: "As decisões passam a ser preventivas." },
             ].map(({ antes, depois }) => (
-              <div key={antes} className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 sm:gap-8">
-                <div className="bg-white rounded-2xl p-6 border border-navy/10 text-right">
-                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-navy/30 mb-2">Antes</p>
-                  <p className="text-navy/60 text-sm sm:text-base leading-snug font-heading font-semibold">{antes}</p>
+              <div key={antes} className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-6">
+                <div className="bg-white/8 rounded-2xl p-5 sm:p-6 border border-white/10 text-right">
+                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-white/30 mb-2">Antes</p>
+                  <p className="text-white/70 text-sm sm:text-base leading-snug font-heading font-semibold">{antes}</p>
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gold shrink-0">
+                <div className="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gold shrink-0 shadow-lg shadow-gold/30">
                   <ArrowRight className="h-4 w-4 text-navy" />
                 </div>
-                <div className="bg-navy rounded-2xl p-6 border border-gold/20">
-                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-gold/60 mb-2">Depois</p>
-                  <p className="text-white text-sm sm:text-base leading-snug font-heading font-semibold">{depois}</p>
+                <div className="bg-gold/10 rounded-2xl p-5 sm:p-6 border border-gold/30">
+                  <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-gold/70 mb-2">Depois</p>
+                  <p className="text-white font-heading font-bold text-sm sm:text-base leading-snug">{depois}</p>
                 </div>
               </div>
             ))}
@@ -246,7 +244,7 @@ export default function HomePage() {
       </section>
 
       {/* ── ISSO É PARA MIM? (SELEÇÃO) ───────────────────────────────────── */}
-      <section id="selecao" className="bg-cream py-24 px-4">
+      <section id="selecao" className="bg-white py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -263,40 +261,40 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* É para você */}
-            <div className="bg-white rounded-2xl p-8 border border-green-mid/20">
-              <h3 className="font-heading font-black text-base text-navy uppercase tracking-wide mb-6 flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-green-mid shrink-0" />
+            <div className="bg-navy rounded-2xl p-8 border border-navy">
+              <h3 className="font-heading font-black text-base text-white uppercase tracking-wide mb-6 flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-gold shrink-0" />
                 É para você se…
               </h3>
               <ul className="flex flex-col gap-4">
                 {isFor.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <CheckCircle2 className="h-4 w-4 text-green-mid shrink-0 mt-0.5" />
-                    <span className="text-navy/75 text-sm leading-snug">{item}</span>
+                    <CheckCircle2 className="h-4 w-4 text-gold shrink-0 mt-0.5" />
+                    <span className="text-white/80 text-sm leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Não é para você */}
-            <div className="bg-navy/5 rounded-2xl p-8 border border-navy/10">
+            <div className="bg-white rounded-2xl p-8 border-2 border-navy/15">
               <h3 className="font-heading font-black text-base text-navy uppercase tracking-wide mb-6 flex items-center gap-2">
-                <XCircle className="h-5 w-5 text-navy/30 shrink-0" />
+                <XCircle className="h-5 w-5 text-navy/40 shrink-0" />
                 Não é para você se…
               </h3>
               <ul className="flex flex-col gap-4">
                 {isNotFor.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <XCircle className="h-4 w-4 text-navy/30 shrink-0 mt-0.5" />
-                    <span className="text-navy/50 text-sm leading-snug">{item}</span>
+                    <span className="text-navy/60 text-sm leading-snug">{item}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-8 pt-6 border-t border-navy/10">
-                <p className="text-navy/60 text-xs leading-relaxed italic">
+                <p className="text-navy/50 text-xs leading-relaxed italic">
                   "Se você chegou até aqui e se reconheceu no primeiro bloco,
                   provavelmente você já é o perfil que buscamos."
                 </p>
@@ -334,16 +332,13 @@ export default function HomePage() {
       </section>
 
       {/* ── VOZES DE MEMBROS ─────────────────────────────────────────────── */}
-      <section
-        className="py-24 px-4"
-        style={{ background: "linear-gradient(160deg, #0d1b35 0%, #1a3566 50%, #1a3a0e 100%)" }}
-      >
+      <section className="py-24 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-gold font-heading font-semibold text-xs tracking-[0.3em] uppercase mb-3">
               Quem está dentro
             </p>
-            <h2 className="font-heading font-black text-2xl sm:text-3xl text-white uppercase tracking-wide">
+            <h2 className="font-heading font-black text-2xl sm:text-3xl text-navy uppercase tracking-wide">
               O que os membros dizem
             </h2>
           </div>
@@ -352,13 +347,13 @@ export default function HomePage() {
             {voices.map(({ quote, name, detail }) => (
               <div
                 key={name}
-                className="relative bg-white/8 rounded-2xl p-8 border border-white/10 flex flex-col gap-5"
+                className="relative bg-white rounded-2xl p-8 border-2 border-navy/10 flex flex-col gap-5 shadow-sm hover:shadow-md hover:border-gold/30 transition-all duration-200"
               >
-                <Quote className="h-8 w-8 text-gold/40 shrink-0" />
-                <p className="text-white/80 text-sm leading-relaxed flex-1 italic">{quote}</p>
-                <div className="border-t border-white/10 pt-4">
+                <Quote className="h-8 w-8 text-gold/50 shrink-0" />
+                <p className="text-navy/70 text-sm leading-relaxed flex-1 italic">{quote}</p>
+                <div className="border-t border-navy/10 pt-4">
                   <p className="text-gold font-heading font-bold text-xs tracking-wide">{name}</p>
-                  <p className="text-white/40 text-xs mt-0.5">{detail}</p>
+                  <p className="text-navy/40 text-xs mt-0.5">{detail}</p>
                 </div>
               </div>
             ))}
@@ -367,29 +362,30 @@ export default function HomePage() {
       </section>
 
       {/* ── COMO FUNCIONA ────────────────────────────────────────────────── */}
-      <section className="bg-cream py-24 px-4">
+      <section className="bg-navy py-24 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-heading font-black text-3xl sm:text-4xl text-navy uppercase tracking-wide">
+            <p className="text-gold font-heading font-semibold text-xs tracking-[0.3em] uppercase mb-3">Processo</p>
+            <h2 className="font-heading font-black text-3xl sm:text-4xl text-white uppercase tracking-wide">
               Como Funciona
             </h2>
-            <p className="text-navy/50 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+            <p className="text-white/50 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
               O processo de entrada no Conselho Agro é simples — e intencional.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             <div
-              className="hidden lg:block absolute top-8 left-[calc(12.5%+2rem)] right-[calc(12.5%+2rem)] h-px bg-gold/25"
+              className="hidden lg:block absolute top-8 left-[calc(12.5%+2rem)] right-[calc(12.5%+2rem)] h-px bg-gold/30"
               aria-hidden="true"
             />
             {steps.map(({ n, title, body }) => (
               <div key={n} className="flex flex-col items-center text-center gap-4 relative">
-                <div className="w-16 h-16 rounded-full bg-navy flex items-center justify-center shrink-0 relative z-10 shadow-lg shadow-navy/30">
-                  <span className="font-heading font-black text-gold text-sm">{n}</span>
+                <div className="w-16 h-16 rounded-full bg-gold flex items-center justify-center shrink-0 relative z-10 shadow-lg shadow-gold/20">
+                  <span className="font-heading font-black text-navy text-sm">{n}</span>
                 </div>
-                <h3 className="font-heading font-bold text-sm text-navy uppercase tracking-wide">{title}</h3>
-                <p className="text-navy/55 text-xs leading-relaxed">{body}</p>
+                <h3 className="font-heading font-bold text-sm text-white uppercase tracking-wide">{title}</h3>
+                <p className="text-white/50 text-xs leading-relaxed">{body}</p>
               </div>
             ))}
           </div>
@@ -438,7 +434,7 @@ export default function HomePage() {
       </section>
 
       {/* ── VERSÍCULO ────────────────────────────────────────────────────── */}
-      <section className="bg-cream py-16 px-4 text-center">
+      <section className="bg-white py-16 px-4 text-center border-t border-navy/8">
         <div className="max-w-2xl mx-auto flex flex-col items-center gap-4">
           <div className="h-px w-12 bg-gold/40" />
           <blockquote className="font-heading font-bold text-xl sm:text-2xl text-navy italic leading-relaxed">
