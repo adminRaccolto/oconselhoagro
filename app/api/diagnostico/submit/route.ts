@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 
-// Envia o diagnóstico completo ao endpoint /api/diagnostico-lead do MentoraSys
-// que calcula o score, cria o lead e envia o email de resultado.
 export async function POST(req: NextRequest) {
   const body = await req.json()
 
@@ -11,30 +9,12 @@ export async function POST(req: NextRequest) {
   const headers: Record<string, string> = { "Content-Type": "application/json" }
   if (webhookSecret) headers["x-conselho-agro-secret"] = webhookSecret
 
+  // Normalize nome/telefone and pass all other fields through unchanged
+  const { nomeCompleto, celular, nome: nomeOrig, telefone: telefoneOrig, ...rest } = body
   const payload = {
-    nome: body.nome ?? body.nomeCompleto,
-    email: body.email,
-    telefone: body.telefone ?? body.celular,
-    cpfCnpj: body.cpfCnpj ?? undefined,
-    // Bloco 1 — Operação
-    temSiloArmazem: body.temSiloArmazem,
-    percentualArrendado: body.percentualArrendado,
-    operacoesTerceirizadas: body.operacoesTerceirizadas,
-    // Bloco 2 — Custos
-    custosInsumosDiretos: body.custosInsumosDiretos,
-    hectaresPorTrabalhador: body.hectaresPorTrabalhador,
-    travaAntecipada: body.travaAntecipada,
-    boaLeituraComercializacao: body.boaLeituraComercializacao,
-    // Bloco 3 — Financeiro
-    frustracaoSafra: body.frustracaoSafra,
-    percentualCusteio: body.percentualCusteio,
-    captouMaisQuePageu: body.captouMaisQuePageu,
-    // Bloco 4 — Gestão
-    usaSoftwareGestao: body.usaSoftwareGestao,
-    sabeCustoPorSaca: body.sabeCustoPorSaca,
-    clarezaCustos: body.clarezaCustos,
-    baseDecisoes: body.baseDecisoes,
-    reuniaoFechamento: body.reuniaoFechamento,
+    ...rest,
+    nome: nomeOrig ?? nomeCompleto,
+    telefone: telefoneOrig ?? celular,
   }
 
   try {
@@ -51,7 +31,6 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await res.json()
-    console.log("[diagnostico/submit] OK — lead:", data.lead_id, "score:", data.score?.geral?.percentual + "%")
     return NextResponse.json({ ok: true, lead_id: data.lead_id }, { status: 201 })
   } catch (err) {
     console.error("[diagnostico/submit] Erro de conexão:", err)

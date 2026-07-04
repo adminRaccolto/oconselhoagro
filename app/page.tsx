@@ -187,28 +187,28 @@ export default function HomePage() {
               O que muda
             </h2>
           </div>
-          <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { antes: "Produtor resolve tudo sozinho.",                          depois: "Você passa a contar com um conselho estratégico." },
-              { antes: "Cada especialista fala uma língua.",                       depois: "Todos trabalham alinhados." },
-              { antes: "Problemas aparecem quando já são grandes.",               depois: "As decisões passam a ser preventivas." },
-              { antes: "Gestão feita na memória e no caderno.",                   depois: "Controle financeiro profissional, em tempo real." },
-              { antes: "Vende quando precisa, ao preço que aparece.",             depois: "Estratégia de venda com hedge, timing e proteção de receita." },
-              { antes: "Patrimônio rural desprotegido e mal estruturado.",        depois: "Estrutura jurídica e tributária que protege o que você construiu." },
-              { antes: "Filho entra na fazenda sem preparo nem protocolo.",       depois: "Próxima geração capacitada para liderar e crescer." },
-              { antes: "Foco no dia a dia — sem ver o futuro do negócio.",        depois: "Visão estratégica de 3 a 5 anos, com metas e plano." },
+              { antes: "Produtor resolve tudo sozinho.",                    depois: "Você passa a contar com um conselho estratégico." },
+              { antes: "Cada especialista fala uma língua.",                depois: "Todos trabalham alinhados." },
+              { antes: "Problemas aparecem quando já são grandes.",         depois: "As decisões passam a ser preventivas." },
+              { antes: "Gestão feita na memória e no caderno.",             depois: "Controle financeiro profissional, em tempo real." },
+              { antes: "Vende quando precisa, ao preço que aparece.",       depois: "Estratégia de venda com hedge, timing e proteção de receita." },
+              { antes: "Patrimônio rural desprotegido e mal estruturado.",  depois: "Estrutura jurídica e tributária que protege o que você construiu." },
+              { antes: "Filho entra na fazenda sem preparo nem protocolo.", depois: "Próxima geração capacitada para liderar e crescer." },
+              { antes: "Foco no dia a dia — sem ver o futuro do negócio.",  depois: "Visão estratégica de 3 a 5 anos, com metas e plano." },
             ].map(({ antes, depois }) => (
-              <div key={antes} className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-6">
-                <div className="bg-white/8 rounded-2xl p-5 sm:p-6 border border-white/10 text-right">
+              <div key={antes} className="flex flex-col rounded-2xl overflow-hidden border border-white/10">
+                <div className="bg-white/8 px-5 py-4 flex-1">
                   <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-white/30 mb-2">Antes</p>
-                  <p className="text-white/70 text-sm sm:text-base leading-snug font-heading font-semibold">{antes}</p>
+                  <p className="text-white/65 text-sm leading-snug font-heading font-semibold">{antes}</p>
                 </div>
-                <div className="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-gold shrink-0 shadow-lg shadow-gold/30">
-                  <ArrowRight className="h-4 w-4 text-navy" />
+                <div className="flex items-center justify-center py-1.5 bg-gold/15 border-t border-b border-gold/20">
+                  <ArrowRight className="h-3.5 w-3.5 text-gold rotate-90" />
                 </div>
-                <div className="bg-gold/10 rounded-2xl p-5 sm:p-6 border border-gold/30">
+                <div className="bg-gold/10 px-5 py-4 flex-1 border-t border-gold/20">
                   <p className="text-[10px] font-heading font-bold tracking-[0.2em] uppercase text-gold/70 mb-2">Depois</p>
-                  <p className="text-white font-heading font-bold text-sm sm:text-base leading-snug">{depois}</p>
+                  <p className="text-white font-heading font-bold text-sm leading-snug">{depois}</p>
                 </div>
               </div>
             ))}
