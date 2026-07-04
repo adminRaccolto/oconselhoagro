@@ -144,15 +144,13 @@ export default function HomePage() {
       </section>
 
       {/* ── DORES DO PRODUTOR ───────────────────────────────────────────── */}
-      <section className="relative py-16 px-4 bg-white overflow-hidden">
-        {/* marca d'água */}
+      <section className="relative py-20 px-4 bg-white overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-          <Image src="/logos/digital.png" alt="" width={480} height={480} className="opacity-[0.04] w-120 h-120 object-contain" />
+          <Image src="/logos/digital.png" alt="" width={520} height={520} className="opacity-[0.035] object-contain" />
         </div>
 
-        <div className="relative max-w-3xl mx-auto">
-          {/* grid 3×3 de dores */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-0 mb-10">
+        <div className="relative max-w-2xl mx-auto text-center">
+          <div className="flex flex-col">
             {[
               "Você produz muito.",
               "Mas não vê o resultado do esforço.",
@@ -166,16 +164,16 @@ export default function HomePage() {
             ].map((text, i) => (
               <p
                 key={i}
-                className="font-heading font-bold text-base sm:text-lg text-navy py-4 border-b border-navy/8 leading-snug"
+                className="font-heading font-bold text-2xl sm:text-3xl text-navy leading-tight py-3 border-b border-navy/8 last:border-0"
               >
                 {text}
               </p>
             ))}
           </div>
 
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="w-16 h-px bg-gold" />
-            <p className="font-heading font-black text-2xl sm:text-4xl text-gold uppercase tracking-wide leading-tight">
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div className="w-16 h-0.5 bg-gold" />
+            <p className="font-heading font-black text-3xl sm:text-5xl text-gold uppercase tracking-wide leading-tight">
               Foi para resolver isso que nasceu o Conselho Agro.
             </p>
           </div>
